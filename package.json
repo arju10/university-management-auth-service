@@ -6,9 +6,9 @@
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only src/server.ts",
     "lint:check": "eslint --ignore-path .eslintignore --ext .js,.ts .",
-"lint:fix": "eslint . --fix",
-"prettier:check": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
-"prettier:fix": "prettier --write .",
+    "lint:fix": "eslint . --fix",
+    "prettier:check": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
+    "prettier:fix": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "arju",
@@ -30,6 +30,7 @@
     "dotenv": "^16.3.1",
     "eslint": "^8.43.0",
     "express": "^4.18.2",
-    "mongoose": "^7.3.0"
+    "mongoose": "^7.3.0",
+    "winston": "^3.9.0"
   }
 }
