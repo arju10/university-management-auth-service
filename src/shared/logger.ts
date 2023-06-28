@@ -1,15 +1,28 @@
 import path from 'path';
-import winston from 'winston';
+import { createLogger, format, transports } from 'winston';
+const { combine, timestamp, label, printf, prettyPrint } = format;
 
+//Custom Log Format
+const myFormat = printf(({ level, message, label, timestamp }) => {
+  const date = new Date(timestamp)
+  const hour = date.getHours()
+  const minutes = date.getMinutes()
+  const seconds = date.getSeconds()
+  return `${date.toDateString()} ${hour}:${minutes}:${seconds} } [${label}] ${level}: ${message}`
+})
 
-
-const logger = winston.createLogger({
+const logger = createLogger({
   level: 'info',
-  format: winston.format.json(),
+  format:  combine(
+    label({ label: 'right meow!' }),
+    timestamp(),
+    myFormat,
+    prettyPrint(),
+  ),
 
   transports: [
-    new winston.transports.Console(),
-    new winston.transports.File({filename: path.join(
+    new transports.Console(),
+    new transports.File({filename: path.join(
       process.cwd(),
       'logs',
       'winston',
@@ -19,13 +32,17 @@ const logger = winston.createLogger({
   ],
 });
 
-const errorlogger = winston.createLogger({
+const errorlogger = createLogger({
   level: 'error',
-  format: winston.format.json(),
+  format:  combine(
+    label({ label: 'right meow!' }),
+    timestamp(),
+    myFormat
+  ),
 
   transports: [
-    new winston.transports.Console(),
-    new winston.transports.File({filename: path.join(
+    new transports.Console(),
+    new transports.File({filename: path.join(
       process.cwd(),
       'logs',
       'winston',
