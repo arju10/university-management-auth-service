@@ -10,7 +10,7 @@
     "lint:check": "eslint --ignore-path .eslintignore --ext .js,.ts .",
     "lint:fix": "lint --fix",
     "prettier:format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
-    "lint-prettier": "yarn lint:check && yarn prettier:check",
+    "lint-prettier": "yarn lint:check && yarn prettier:format",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "lint-staged": {
