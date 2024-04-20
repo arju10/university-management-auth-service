@@ -7,20 +7,17 @@
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "start": "node ./dist/server.js",
     "build": "tsc",
-    "lint:check": "eslint --ignore-path .eslintignore --ext .js,.ts .",
-
-    "lint:fix": "eslint --fix",
-
-    "prettier:format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
-
+    "prettier:check": "prettier --ignore-pattern .gitignore --write \"**/*.+(js|ts|json)\"",
+    "prettier:fix": "prettier --write .",
+    "prettier:format": "prettier --ignore-pattern .gitignore --write \"**/*.+(js|ts|json)\"",
     "lint-prettier": "yarn lint:check && yarn prettier:check",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint:check": "eslint --config .eslintrc.js .",
+    "lint:fix": "eslint --config .eslintrc.js . --fix"
   },
-
   "lint-staged": {
     "src/**/*.ts": "yarn lint-prettier"
   },
-  
   "author": "Arju",
   "license": "ISC",
   "devDependencies": {
@@ -38,7 +35,7 @@
     "@typescript-eslint/parser": "^7.7.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "eslint": "^9.0.0",
+    "eslint": "^9.1.0",
     "express": "^4.19.2",
     "mongoose": "^8.3.2"
   }
