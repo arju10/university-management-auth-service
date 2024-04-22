@@ -5,11 +5,16 @@ type UserModel = Model<IUser, object>
 
 const userSchema = new Schema<IUser>(
   {
-    name: {
+    id: {
       type: String,
       required: true,
       unique: true,
     },
+    // name: {
+    //   type: String,
+    //   required: true,
+    //   unique: true,
+    // },
     role: {
       type: String,
       required: true,
@@ -24,4 +29,4 @@ const userSchema = new Schema<IUser>(
   },
 )
 
-const User = model<IUser, UserModel>('User', userSchema)
+export const User = model<IUser, UserModel>('User', userSchema)
