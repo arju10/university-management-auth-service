@@ -8,7 +8,10 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+// console.log(app.get('env'));
+
 // Application routes
+
 import usersRouter from './app/modules/users/users.route'
 
 app.use('/api/v1/users/', usersRouter)
