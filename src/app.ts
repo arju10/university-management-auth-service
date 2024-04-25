@@ -1,4 +1,4 @@
-import express, { Application, Request, Response } from 'express'
+import express, { Application, NextFunction, Request, Response } from 'express'
 import cors from 'cors'
 const app: Application = express()
 
@@ -8,10 +8,16 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// Application routes
-import usersRouter from './app/modules/users/users.route'
+// console.log(app.get('env'));
 
-app.use('/api/v1/users/', usersRouter)
+// Application routes
+
+import { error } from 'winston'
+import globalErrorHandler from './app/middlewares/globalErrorHandler'
+import { UserRoutes } from './app/modules/users/user.route'
+import ApiError from './errors/ApiError'
+
+app.use('/api/v1/users/', UserRoutes)
 
 // Testing
 // app.get('/', async (req: Request, res: Response) => {
@@ -22,7 +28,23 @@ app.use('/api/v1/users/', usersRouter)
 //   })
 //   res.send('Woking successfully!')
 // })
+
+// Testing
+// app.get('/', (req: Request, res: Response, next: NextFunction) => {
+//   throw new ApiError(400,"Ore Baba error");
+//   // next('ore Baba error') //Error
+// })
+
+// Testing
+// app.get('/', async (req: Request, res: Response, next: NextFunction) => {
+//   Promise.reject(new Error('Unhandled Promise Rejection'))
+// })
+
+// Global Error Handler
+app.use(globalErrorHandler)
+
 app.get('/', async (req: Request, res: Response) => {
   res.send('Working successfully')
+  // console.log(x)
 })
 export default app

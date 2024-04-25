@@ -1,0 +1,2 @@
+Wed Apr 24 2024 6:7:25 } [PH] error: Failed to connect Database mongoose_1.default.connec is not a function
+Wed Apr 24 2024 6:28:37 } [PH] error: Failed to connect Database querySrv ECONNREFUSED _mongodb._tcp.cluster0.9hyks.mongodb.net
