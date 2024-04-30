@@ -1,23 +1,23 @@
-import express, { Application, NextFunction, Request, Response } from 'express'
-import cors from 'cors'
-const app: Application = express()
+import express, { Application, NextFunction, Request, Response } from 'express';
+import cors from 'cors';
+const app: Application = express();
 
-app.use(cors())
+app.use(cors());
 
 // parser
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // console.log(app.get('env'));
 
 // Application routes
 
-import { error } from 'winston'
-import globalErrorHandler from './app/middlewares/globalErrorHandler'
-import { UserRoutes } from './app/modules/users/user.route'
-import ApiError from './errors/ApiError'
+import { error } from 'winston';
+import globalErrorHandler from './app/middlewares/globalErrorHandler';
+import { UserRoutes } from './app/modules/user/user.route';
+import ApiError from './errors/ApiError';
 
-app.use('/api/v1/users/', UserRoutes)
+app.use('/api/v1/users/', UserRoutes);
 
 // Testing
 // app.get('/', async (req: Request, res: Response) => {
@@ -41,10 +41,10 @@ app.use('/api/v1/users/', UserRoutes)
 // })
 
 // Global Error Handler
-app.use(globalErrorHandler)
+app.use(globalErrorHandler);
 
 app.get('/', async (req: Request, res: Response) => {
-  res.send('Working successfully')
+  res.send('Working successfully');
   // console.log(x)
-})
-export default app
+});
+export default app;
