@@ -10,14 +10,16 @@ app.use(express.urlencoded({ extended: true }));
 
 // console.log(app.get('env'));
 
-// Application routes
-
 import { error } from 'winston';
-import globalErrorHandler from './app/middlewares/globalErrorHandler';
-import { UserRoutes } from './app/modules/user/user.route';
 import ApiError from './errors/ApiError';
+import globalErrorHandler from './app/middlewares/globalErrorHandler';
+
+// Application routes
+import { UserRoutes } from './app/modules/user/user.route';
+import { SemesterRoutes } from './app/modules/academicSemester/academicSemester.route';
 
 app.use('/api/v1/users/', UserRoutes);
+app.use('/api/v1/academic-semesters/', SemesterRoutes);
 
 // Testing
 // app.get('/', async (req: Request, res: Response) => {
