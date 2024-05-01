@@ -47,10 +47,10 @@ const academicSemesterSchema = new Schema<IAcademicSemester>(
 // Data -> check -? Same year && same semester
 
 academicSemesterSchema.pre('save', async function (next) {
-  const semester = this as IAcademicSemester; // Cast 'this' to IAcademicSemester
+  // const semester = this as IAcademicSemester; // Cast 'this' to IAcademicSemester
   const isExist = await AcademicSemester.findOne({
-    title: semester.title,
-    year: semester.year,
+    title: this.title,
+    year: this.year,
   });
   // console.log(isExist)
   if (isExist) {

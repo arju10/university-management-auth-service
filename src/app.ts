@@ -17,9 +17,10 @@ import globalErrorHandler from './app/middlewares/globalErrorHandler';
 // Application routes
 import { UserRoutes } from './app/modules/user/user.route';
 import { SemesterRoutes } from './app/modules/academicSemester/academicSemester.route';
+import routes from './app/routes';
 
-app.use('/api/v1/users/', UserRoutes);
-app.use('/api/v1/academic-semesters/', SemesterRoutes);
+// app.use('/api/v1/users/', UserRoutes);
+app.use('/api/v1/', routes);
 
 // Testing
 // app.get('/', async (req: Request, res: Response) => {
