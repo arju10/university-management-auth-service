@@ -40,7 +40,7 @@ const getAllSemesters = catchAsync(
     //   sortOrder: req.query.sortOrder,
     // };
     const paginationOptions = pick(req.query, paginationField);
-    console.log(paginationOptions);
+    // console.log(paginationOptions);
     const result =
       await AcademicSemesterService.getAllSemesters(paginationOptions);
 
