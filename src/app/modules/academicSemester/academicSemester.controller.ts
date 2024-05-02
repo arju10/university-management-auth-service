@@ -26,6 +26,27 @@ const createSemester: RequestHandler = catchAsync(
   },
 );
 
+const getAllSemesters = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const paginationOptions = {
+      page: Number(req.query.page),
+      limit: Number(req.query.limit),
+      sortBy: req.query.sortBy,
+      sortOrder: req.query.sortOrder,
+    };
+
+    const result = await AcademicSemesterService.getAllSemesters({});
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Academic Semester is created successfully',
+      data: result,
+    });
+  },
+);
+
 export const AcademicSemesterController = {
   createSemester,
+  getAllSemesters,
 };
