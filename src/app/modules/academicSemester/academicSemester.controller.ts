@@ -6,6 +6,7 @@ import httpStatus from 'http-status';
 import pick from '../../../shared/pick';
 import { paginationField } from '../../../constants/pagination';
 import { IAcademicSemester } from './academicSemester.interface';
+import { academicSemesterFilterebleFields } from './academicSemester.constant';
 
 // Create a semester  ==== API: ("/api/v1/academic-semesters/create-semester") === Method :[ POST]
 const createSemester: RequestHandler = catchAsync(
@@ -39,9 +40,10 @@ const getAllSemesters = catchAsync(
     //   sortBy: req.query.sortBy,
     //   sortOrder: req.query.sortOrder,
     // };
-    const filters = pick(req.query, ['searchTerm']);
+    const filters = pick(req.query, academicSemesterFilterebleFields);
     const paginationOptions = pick(req.query, paginationField);
     // console.log(paginationOptions);
+    // console.log(filters)
     const result = await AcademicSemesterService.getAllSemesters(
       filters,
       paginationOptions,
