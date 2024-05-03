@@ -1,5 +1,4 @@
 import { SortOrder } from 'mongoose';
-import { number } from 'zod';
 
 type IOptions = {
   page?: number;

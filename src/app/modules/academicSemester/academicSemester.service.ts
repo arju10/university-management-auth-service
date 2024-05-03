@@ -51,29 +51,6 @@ const getAllSemesters = async (
     });
   }
 
-  //   const andConditions =[
-  // {    $or:[
-  //       {
-  //         title:{
-  //           $regex:searchTerm,
-  //           $options:'i'
-  //         }
-  //       },
-  //       {
-  //         code:{
-  //           $regex:searchTerm,
-  //           $options:'i'
-  //         }
-  //       },
-  //       {
-  //         year:{
-  //           $regex:searchTerm,
-  //           $options:'i'
-  //         }
-  //       },
-  //     ]}
-  //   ]
-
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelpers.calculatePagination(paginationOptions);
 

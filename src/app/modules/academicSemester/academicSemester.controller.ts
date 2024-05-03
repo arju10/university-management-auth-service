@@ -23,22 +23,11 @@ const createSemester: RequestHandler = catchAsync(
       message: 'Academic Semester is created successfully',
       data: result,
     });
-    // res.status(200).json({
-    //   success: true,
-    //   message: 'Academic Semester is created successfully',
-    //   data: result,
-    // });
   },
 );
 
 // Get All Semester with pagination ==== API: ("/api/v1/academic-semesters/?page=1&limit=10") === Method :[ GET]
 const getAllSemesters = catchAsync(async (req: Request, res: Response) => {
-  // const paginationOptions = {
-  //   page: Number(req.query.page),
-  //   limit: Number(req.query.limit),
-  //   sortBy: req.query.sortBy,
-  //   sortOrder: req.query.sortOrder,
-  // };
   const filters = pick(req.query, academicSemesterFilterebleFields);
   const paginationOptions = pick(req.query, paginationField);
   // console.log(paginationOptions);
