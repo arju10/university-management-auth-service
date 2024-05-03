@@ -77,7 +77,7 @@ const getSingleSemester = catchAsync(
   },
 );
 
-// Update Single Semester By ID ==== API: ("/api/v1/academic-semesters/:id") === Method :[ GET]
+// Update Single Semester By ID ==== API: ("/api/v1/academic-semesters/:id") === Method :[ Patch]
 const updateSemester = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id;
