@@ -39,10 +39,13 @@ const getAllSemesters = catchAsync(
     //   sortBy: req.query.sortBy,
     //   sortOrder: req.query.sortOrder,
     // };
+    const filters = pick(req.query, ['searchTerm']);
     const paginationOptions = pick(req.query, paginationField);
     // console.log(paginationOptions);
-    const result =
-      await AcademicSemesterService.getAllSemesters(paginationOptions);
+    const result = await AcademicSemesterService.getAllSemesters(
+      filters,
+      paginationOptions,
+    );
 
     sendResponse<IAcademicSemester[]>(res, {
       statusCode: httpStatus.OK,
