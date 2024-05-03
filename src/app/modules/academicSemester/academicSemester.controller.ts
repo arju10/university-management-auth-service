@@ -31,7 +31,7 @@ const createSemester: RequestHandler = catchAsync(
   },
 );
 
-// Get All Semester with pagination ==== API: ("/api/v1/academic-semesters//?page=1&limit=10") === Method :[ GET]
+// Get All Semester with pagination ==== API: ("/api/v1/academic-semesters/?page=1&limit=10") === Method :[ GET]
 const getAllSemesters = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     // const paginationOptions = {
@@ -60,7 +60,24 @@ const getAllSemesters = catchAsync(
   },
 );
 
+// Get Single Semester By ID ==== API: ("/api/v1/academic-semesters/:id) === Method :[ GET]
+const getSingleSemester = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id;
+
+    const result = await AcademicSemesterService.getSingleSemester(id);
+
+    sendResponse<IAcademicSemester | null>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Single semester retrieved successfully',
+      data: result,
+    });
+    next();
+  },
+);
 export const AcademicSemesterController = {
   createSemester,
   getAllSemesters,
+  getSingleSemester,
 };
