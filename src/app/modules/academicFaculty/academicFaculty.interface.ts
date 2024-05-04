@@ -9,4 +9,6 @@ export type AcademicFacultyModel = Model<
   Record<string, unknown>
 >;
 
-// Filter and searching will be here later
+export type IAcademicFacultyFilters = {
+  searchTerm?: string;
+};

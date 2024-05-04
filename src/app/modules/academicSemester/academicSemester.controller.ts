@@ -4,7 +4,7 @@ import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import httpStatus from 'http-status';
 import pick from '../../../shared/pick';
-import { paginationField } from '../../../constants/pagination';
+import { paginationFields } from '../../../constants/pagination';
 import { IAcademicSemester } from './academicSemester.interface';
 import { academicSemesterFilterableFields } from './academicSemester.constant';
 
@@ -29,7 +29,7 @@ const createSemester: RequestHandler = catchAsync(
 // Get All Semester with pagination ==== API: ("/api/v1/academic-semesters/?page=1&limit=10") === Method :[ GET]
 const getAllSemesters = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, academicSemesterFilterableFields);
-  const paginationOptions = pick(req.query, paginationField);
+  const paginationOptions = pick(req.query, paginationFields);
   // console.log(paginationOptions);
   // console.log(filters)
   const result = await AcademicSemesterService.getAllSemesters(
