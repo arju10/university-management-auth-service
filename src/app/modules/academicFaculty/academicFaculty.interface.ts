@@ -4,7 +4,7 @@ export type IAcademicFaculty = {
   title: string;
 };
 
-export type AcademicSemesterModel = Model<
+export type AcademicFacultyModel = Model<
   IAcademicFaculty,
   Record<string, unknown>
 >;
