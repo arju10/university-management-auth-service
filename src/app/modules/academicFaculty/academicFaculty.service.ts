@@ -1,7 +1,7 @@
 import { IAcademicFaculty } from './academicFaculty.interface';
 import { AcademicFaculty } from './academicFaculty.model';
 
-// Create new Academic Faculty ==== API: ("/api/v1/academic-faculties/") === Method :[ POST]
+// Create new Academic Faculty ==== API: ("/api/v1/academic-faculties/create-faculty") === Method :[ POST]
 const createFaculty = async (
   payload: IAcademicFaculty,
 ): Promise<IAcademicFaculty | null> => {

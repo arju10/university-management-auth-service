@@ -5,7 +5,7 @@ import { AcademicFacultyService } from './academicFaculty.service';
 import { IAcademicFaculty } from './academicFaculty.interface';
 import httpStatus from 'http-status';
 
-// Create new Academic Faculty ==== API: ("/api/v1/academic-faculties/") === Method :[ POST]
+// Create new Academic Faculty ==== API: ("/api/v1/academic-faculties/create-faculty") === Method :[ POST]
 const createFaculty = catchAsync(async (req: Request, res: Response) => {
   const { ...academicFacultyData } = req.body;
   const result =
