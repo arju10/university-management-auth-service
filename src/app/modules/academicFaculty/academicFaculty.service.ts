@@ -72,7 +72,16 @@ const getAllFaculties = async (
   };
 };
 
+// Get Single Academic faculty By ID ==== API: ("/api/v1/academic-faculties/:id") === Method :[ GET]
+const getSingleFaculty = async (
+  id: string,
+): Promise<IAcademicFaculty | null> => {
+  const result = await AcademicFaculty.findById(id);
+  return result;
+};
+
 export const AcademicFacultyService = {
   createFaculty,
   getAllFaculties,
+  getSingleFaculty,
 };
