@@ -90,9 +90,18 @@ const updateFaculty = async (
   });
   return result;
 };
+
+// DELETE Single Academic faculty By ID ==== API: ("/api/v1/academic-faculties/:id") === Method :[ DELETE]
+const deleteByIdFromDB = async (
+  id: string,
+): Promise<IAcademicFaculty | null> => {
+  const result = await AcademicFaculty.findByIdAndDelete(id);
+  return result;
+};
 export const AcademicFacultyService = {
   createFaculty,
   getAllFaculties,
   getSingleFaculty,
   updateFaculty,
+  deleteByIdFromDB,
 };
