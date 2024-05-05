@@ -99,9 +99,19 @@ const updateDepartment = async (
   ).populate('academicFaculty');
   return result;
 };
+
+// Delete Single Academic Department By ID==== API: ("/api/v1/academic-departments/:id") === Method :[DELETE]
+const deleteDepartment = async (
+  id: string,
+): Promise<IAcademicDepartment | null> => {
+  const result = await AcademicDepartment.findByIdAndDelete(id);
+  return result;
+};
+
 export const AcademicDepartmentService = {
   createDepartment,
   getAllDepartments,
   getSingleDepartment,
   updateDepartment,
+  deleteDepartment,
 };
