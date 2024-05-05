@@ -10,6 +10,8 @@ router.post(
 );
 router.get('/:id', AcademicDepartmentController.getSingleDepartment);
 
+router.patch('/:id', AcademicDepartmentController.updateDepartment);
+
 router.get('/', AcademicDepartmentController.getAllDepartments);
 
 export const AcademicDepartmentRoutes = router;

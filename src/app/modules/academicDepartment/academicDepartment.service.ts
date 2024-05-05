@@ -84,8 +84,24 @@ const getSingleDepartment = async (
     await AcademicDepartment.findById(id).populate('academicFaculty');
   return result;
 };
+
+// Update Single Academic Department By ID==== API: ("/api/v1/academic-departments/:id") === Method :[ PATCH]
+const updateDepartment = async (
+  id: string,
+  payload: Partial<IAcademicDepartment>,
+): Promise<IAcademicDepartment | null> => {
+  const result = await AcademicDepartment.findOneAndUpdate(
+    { _id: id },
+    payload,
+    {
+      new: true,
+    },
+  ).populate('academicFaculty');
+  return result;
+};
 export const AcademicDepartmentService = {
   createDepartment,
   getAllDepartments,
   getSingleDepartment,
+  updateDepartment,
 };

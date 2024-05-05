@@ -54,8 +54,23 @@ const getSingleDepartment = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+
+// Update Single Academic Department By ID==== API: ("/api/v1/academic-departments/:id") === Method :[ PATCH]
+const updateDepartment = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await AcademicDepartmentService.updateDepartment(id, req.body);
+
+  sendResponse<IAcademicDepartment>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Academic Department updated successfully',
+    data: result,
+  });
+});
+
 export const AcademicDepartmentController = {
   createDepartment,
   getAllDepartments,
   getSingleDepartment,
+  updateDepartment,
 };
