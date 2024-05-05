@@ -8,6 +8,7 @@ router.post(
   '/create-department',
   AcademicDepartmentController.createDepartment,
 );
+router.get('/:id', AcademicDepartmentController.getSingleDepartment);
 
 router.get('/', AcademicDepartmentController.getAllDepartments);
 
