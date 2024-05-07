@@ -14,13 +14,16 @@ import { error } from 'winston';
 import ApiError from './errors/ApiError';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 
-// Application routes
 import { UserRoutes } from './app/modules/user/user.route';
 import { SemesterRoutes } from './app/modules/academicSemester/academicSemester.route';
 import routes from './app/routes';
 import httpStatus from 'http-status';
-import { generateStudentId } from './app/modules/user/user.utils';
+import {
+  generateFacultyId,
+  generateStudentId,
+} from './app/modules/user/user.utils';
 
+// Application routes
 // app.use('/api/v1/users/', UserRoutes);
 app.use('/api/v1/', routes);
 
@@ -64,17 +67,25 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // test student user id generate
-const academicSemester = {
-  code: '01',
-  year: '2025',
-};
+// const academicSemester = {
+//   code: '01',
+//   year: '2025',
+// };
 
+// const testId = async () => {
+//   const testId = await generateStudentId(academicSemester);
+//   console.log(testId);
+// };
+// testId();
+// finish test student user id generate
+
+// test faculty user id generate
 const testId = async () => {
-  const testId = await generateStudentId(academicSemester);
+  const testId = await generateFacultyId();
   console.log(testId);
 };
 testId();
-// finish test student user id generate
+// finish test faculty user id generate
 
 app.get('/', async (req: Request, res: Response) => {
   res.send('Working successfully');

@@ -1,13 +1,13 @@
 import { IAcademicSemester } from '../academicSemester/academicSemester.interface';
 import { User } from './user.model';
 
-export const findLastStudentId = async () => {
-  const lastUser = await User.findOne({}, { id: 1, _id: 0 })
+export const findLastStudentId = async (): Promise<string | undefined> => {
+  const lastStudent = await User.findOne({}, { id: 1, _id: 0 })
     .sort({
       createdAt: -1,
     })
     .lean();
-  return lastUser?.id;
+  return lastStudent?.id;
 };
 
 export const generateStudentId = async (
@@ -21,5 +21,24 @@ export const generateStudentId = async (
   incrementedId = `${academicSemester.year.substring(2)}${academicSemester.code}${incrementedId}`; // Corrected the concatenation
 
   // console.log(incrementedId);
+  return incrementedId;
+};
+
+// For faculty generate ID
+export const findLastFacultyId = async (): Promise<string | undefined> => {
+  const lastFaculty = await User.findOne({}, { id: 1, _id: 0 })
+    .sort({
+      createdAt: -1,
+    })
+    .lean();
+
+  return lastFaculty?.id;
+};
+export const generateFacultyId = async (): Promise<string> => {
+  const currentId =
+    (await findLastFacultyId()) || (0).toString().padStart(5, '0');
+
+  let incrementedId = (parseInt(currentId) + 1).toString().padStart(5, '0');
+  incrementedId = `F-${incrementedId}`;
   return incrementedId;
 };
