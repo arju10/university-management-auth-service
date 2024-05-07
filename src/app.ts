@@ -19,6 +19,7 @@ import { UserRoutes } from './app/modules/user/user.route';
 import { SemesterRoutes } from './app/modules/academicSemester/academicSemester.route';
 import routes from './app/routes';
 import httpStatus from 'http-status';
+import { generateStudentId } from './app/modules/user/user.utils';
 
 // app.use('/api/v1/users/', UserRoutes);
 app.use('/api/v1/', routes);
@@ -61,6 +62,19 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   });
   next();
 });
+
+// test student user id generate
+const academicSemester = {
+  code: '01',
+  year: '2025',
+};
+
+const testId = async () => {
+  const testId = await generateStudentId(academicSemester);
+  console.log(testId);
+};
+testId();
+// finish test student user id generate
 
 app.get('/', async (req: Request, res: Response) => {
   res.send('Working successfully');
