@@ -9,7 +9,7 @@ import { IStudent, IStudentFilters } from './student.interface';
 import { studentSearchableFields } from './student.constant';
 import { Student } from './student.model';
 
-// Get All Semester with pagination ==== API: ("/api/v1/academic-semesters//?page=1&limit=10") === Method :[ GET]
+// Get All Semester with pagination ==== API: ("/api/v1/students//?page=1&limit=10") === Method :[ GET]
 const getAllStudents = async (
   filters: IStudentFilters,
   paginationOptions: IPaginationOptions,
@@ -64,7 +64,7 @@ const getAllStudents = async (
   };
 };
 
-// Get Single Semester By ID ==== API: ("/api/v1/academic-semesters/:id") === Method :[ GET]
+// Get Single Semester By ID ==== API: ("/api/v1/students/:id") === Method :[ GET]
 const getSingleStudent = async (id: string): Promise<IStudent | null> => {
   const result = await Student.findById(id)
     .populate('academicSemester')
@@ -73,18 +73,41 @@ const getSingleStudent = async (id: string): Promise<IStudent | null> => {
   return result;
 };
 
-// Update Single Semester By ID ==== API: ("/api/v1/academic-semesters/:id") === Method :[ Patch]
-// const updateStudent = async (
-//   id: string,
-//   payload: Partial<IStudent>,
-// ): Promise<IStudent | null> => {
-//   const result = await Student.findOneAndUpdate({ _id: id }, payload, {
-//     new: true,
-//   });
-//   return result;
-// };
+// Update Single Semester By ID ==== API: ("/api/v1/students/:id") === Method :[ Patch]
+const updateStudent = async (
+  id: string,
+  payload: Partial<IStudent>,
+): Promise<IStudent | null> => {
+  const isExit = await Student.findOne({ id });
 
-// Delete Single Semester By ID ==== API: ("/api/v1/academic-semesters/:id") === Method :[ DELETE]
+  if (!isExit) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Student not found');
+  }
+  const { name, guardian, localGuardian, ...studentData } = payload;
+
+  const updatedStudentData: Partial<IStudent> = { ...studentData };
+
+  /* const name = {
+  firstName :'Rifat', <------ For Update
+  lastName: 'Mollah'
+}
+*/
+  // Dynamically handling
+
+  if (name && Object.keys(name).length > 0) {
+    Object.keys(name).forEach(key => {
+      const nameKey = `name.${key}`;
+      (updatedStudentData as any)[nameKey] = name[key as keyof typeof name];
+    });
+  }
+
+  const result = await Student.findOneAndUpdate({ _id: id }, payload, {
+    new: true,
+  });
+  return result;
+};
+
+// Delete Single Semester By ID ==== API: ("/api/v1/students/:id") === Method :[ DELETE]
 const deleteStudent = async (id: string): Promise<IStudent | null> => {
   const result = await Student.findByIdAndDelete(id)
     .populate('academicSemester')
@@ -96,6 +119,6 @@ const deleteStudent = async (id: string): Promise<IStudent | null> => {
 export const StudentService = {
   getAllStudents,
   getSingleStudent,
-  // updateStudent,
+  updateStudent,
   deleteStudent,
 };
