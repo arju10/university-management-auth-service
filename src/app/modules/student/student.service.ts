@@ -101,9 +101,29 @@ const updateStudent = async (
     });
   }
 
-  const result = await Student.findOneAndUpdate({ _id: id }, payload, {
-    new: true,
-  });
+  if (guardian && Object.keys(guardian).length > 0) {
+    Object.keys(guardian).forEach(key => {
+      const guardianKey = `guardian.${key}`;
+      (updatedStudentData as any)[guardianKey] =
+        guardian[key as keyof typeof guardian];
+    });
+  }
+
+  if (localGuardian && Object.keys(localGuardian).length > 0) {
+    Object.keys(localGuardian).forEach(key => {
+      const localGuardianKey = `localGuardian.${key}`;
+      (updatedStudentData as any)[localGuardianKey] =
+        localGuardian[key as keyof typeof localGuardian];
+    });
+  }
+
+  const result = await Student.findOneAndUpdate(
+    { id: id },
+    updatedStudentData,
+    {
+      new: true,
+    },
+  );
   return result;
 };
 
