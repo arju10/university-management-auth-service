@@ -10,7 +10,7 @@ router.get('/:id', StudentController.getSingleStudent);
 router.get('/', StudentController.getAllStudents);
 
 router.get('/:id', StudentController.deleteStudent);
-router.patch('/:id', StudentController.updateStudent);
+// router.patch('/:id', StudentController.updateStudent);
 
 // router.post(
 //   '/create-student',

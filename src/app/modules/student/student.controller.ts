@@ -8,6 +8,7 @@ import { paginationFields } from '../../../constants/pagination';
 
 import { IStudent } from './student.interface';
 import { studentFilterableFields } from './student.constant';
+import { StudentService } from './student.service';
 
 // Get All Student with pagination ==== API: ("/api/v1/academic-semesters/?page=1&limit=10") === Method :[ GET]
 const getAllStudents = catchAsync(async (req: Request, res: Response) => {
@@ -44,19 +45,19 @@ const getSingleStudent = catchAsync(async (req: Request, res: Response) => {
 });
 
 // Update Single Student By ID ==== API: ("/api/v1/academic-semesters/:id") === Method :[ Patch]
-const updateStudent = catchAsync(async (req: Request, res: Response) => {
-  const id = req.params.id;
-  const updatedData = req.body;
+// const updateStudent = catchAsync(async (req: Request, res: Response) => {
+//   const id = req.params.id;
+//   const updatedData = req.body;
 
-  const result = await StudentService.updateStudent(id, updatedData);
+//   const result = await StudentService.updateStudent(id, updatedData);
 
-  sendResponse<IStudent | null>(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'semester updated successfully',
-    data: result,
-  });
-});
+//   sendResponse<IStudent | null>(res, {
+//     statusCode: httpStatus.OK,
+//     success: true,
+//     message: 'semester updated successfully',
+//     data: result,
+//   });
+// });
 
 // Delete Single Student By ID ==== API: ("/api/v1/academic-semesters/:id") === Method :[ DELETE]
 
@@ -75,6 +76,6 @@ const deleteStudent = catchAsync(async (req: Request, res: Response) => {
 export const StudentController = {
   getAllStudents,
   getSingleStudent,
-  updateStudent,
+  // updateStudent,
   deleteStudent,
 };
