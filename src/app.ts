@@ -80,11 +80,11 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // finish test student user id generate
 
 // test faculty user id generate
-const testId = async () => {
-  const testId = await generateFacultyId();
-  console.log(testId);
-};
-testId();
+// const testId = async () => {
+//   const testId = await generateFacultyId();
+//   console.log(testId);
+// };
+// testId();
 // finish test faculty user id generate
 
 app.get('/', async (req: Request, res: Response) => {
