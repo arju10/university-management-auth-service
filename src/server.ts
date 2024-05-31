@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import config from '../config/index';
+import config from './config/index';
 import app from './app';
 import { errorlogger, logger } from './shared/logger';
 import { Server } from 'http';

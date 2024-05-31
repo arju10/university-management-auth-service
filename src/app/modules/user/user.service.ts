@@ -1,7 +1,7 @@
 // Business Logic/ Database Logic
 
 import mongoose from 'mongoose';
-import config from '../../../../config';
+import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
 import { AcademicSemester } from '../academicSemester/academicSemester.model';
 import { IStudent } from '../student/student.interface';
