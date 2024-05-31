@@ -1,6 +1,6 @@
 import { Model, Types } from 'mongoose';
 import { IStudent } from '../student/student.interface';
-import { IFaculty } from '../../faculty/faculty.interface';
+import { IFaculty } from '../faculty/faculty.interface';
 
 export type IUser = {
   id: string;
