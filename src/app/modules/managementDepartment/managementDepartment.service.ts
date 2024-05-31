@@ -80,8 +80,24 @@ const getSingleDepartment = async (
   return result;
 };
 
+// Update Single Management Department By ID==== API: ("/api/v1/management-departments/:id") === Method :[ PATCH]
+const updateDepartment = async (
+  id: string,
+  payload: Partial<IManagementDepartment>,
+): Promise<IManagementDepartment | null> => {
+  const result = await ManagementDepartment.findOneAndUpdate(
+    { _id: id },
+    payload,
+    {
+      new: true,
+    },
+  );
+  return result;
+};
+
 export const ManagementDepartmentService = {
   createDepartment,
   getAllDepartments,
   getSingleDepartment,
+  updateDepartment,
 };

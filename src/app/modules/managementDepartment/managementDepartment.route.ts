@@ -12,5 +12,12 @@ router.post(
   ManagementDepartmentController.createDepartment,
 );
 router.get('/:id', ManagementDepartmentController.getSingleDepartment);
+router.patch(
+  '/:id',
+  validateRequest(
+    ManagementDepartmentValidation.updateManagementDepartmentZodSchema,
+  ),
+  ManagementDepartmentController.updateDepartment,
+);
 router.get('/', ManagementDepartmentController.getAllDepartments);
 export const ManagementDepartmentRoutes = router;
