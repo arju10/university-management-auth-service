@@ -107,7 +107,7 @@ const createFacultyZodSchema = z.object({
         }),
         middleName: z.string().optional(),
       }),
-      gender: z.string({
+      gender: z.enum([...gender] as [string, ...string[]], {
         required_error: 'Gender is required',
       }),
       dateOfBirth: z.string({
