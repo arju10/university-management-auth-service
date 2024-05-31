@@ -4,12 +4,13 @@ import ApiError from '../../../errors/ApiError';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import { IGenericResponse } from '../../../interfaces/common';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
-import { SortOrder } from 'mongoose';
+import mongoose, { SortOrder } from 'mongoose';
 import { IStudent, IStudentFilters } from './student.interface';
 import { studentSearchableFields } from './student.constant';
 import { Student } from './student.model';
+import { User } from '../user/user.model';
 
-// Get All Semester with pagination ==== API: ("/api/v1/students//?page=1&limit=10") === Method :[ GET]
+// Get All Students with pagination ==== API: ("/api/v1/students//?page=1&limit=10") === Method :[ GET]
 const getAllStudents = async (
   filters: IStudentFilters,
   paginationOptions: IPaginationOptions,
@@ -64,7 +65,7 @@ const getAllStudents = async (
   };
 };
 
-// Get Single Semester By ID ==== API: ("/api/v1/students/:id") === Method :[ GET]
+// Get Single Student  By ID ==== API: ("/api/v1/students/:id") === Method :[ GET]
 const getSingleStudent = async (id: string): Promise<IStudent | null> => {
   const result = await Student.findOne({ id })
     .populate('academicSemester')
@@ -86,13 +87,6 @@ const updateStudent = async (
   const { name, guardian, localGuardian, ...studentData } = payload;
 
   const updatedStudentData: Partial<IStudent> = { ...studentData };
-
-  /* const name = {
-  firstName :'Rifat', <------ For Update
-  lastName: 'Mollah'
-}
-*/
-  // Dynamically handling
 
   if (name && Object.keys(name).length > 0) {
     Object.keys(name).forEach(key => {
@@ -127,13 +121,34 @@ const updateStudent = async (
   return result;
 };
 
-// Delete Single Semester By ID ==== API: ("/api/v1/students/:id") === Method :[ DELETE]
+// Delete Single Student By ID ==== API: ("/api/v1/students/:id") === Method :[ DELETE]
 const deleteStudent = async (id: string): Promise<IStudent | null> => {
-  const result = await Student.findByIdAndDelete(id)
-    .populate('academicSemester')
-    .populate('academicDepartment')
-    .populate('academicFaculty');
-  return result;
+  // check if the student is exist
+  const isExist = await Student.findOne({ id });
+
+  if (!isExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Student not found !');
+  }
+
+  const session = await mongoose.startSession();
+
+  try {
+    session.startTransaction();
+    //delete student first
+    const student = await Student.findOneAndDelete({ id }, { session });
+    if (!student) {
+      throw new ApiError(404, 'Failed to delete student');
+    }
+    //delete user
+    await User.deleteOne({ id });
+    session.commitTransaction();
+    session.endSession();
+
+    return student;
+  } catch (error) {
+    session.abortTransaction();
+    throw error;
+  }
 };
 
 export const StudentService = {
