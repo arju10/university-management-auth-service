@@ -66,7 +66,7 @@ const getAllStudents = async (
 
 // Get Single Semester By ID ==== API: ("/api/v1/students/:id") === Method :[ GET]
 const getSingleStudent = async (id: string): Promise<IStudent | null> => {
-  const result = await Student.findOne({id})
+  const result = await Student.findOne({ id })
     .populate('academicSemester')
     .populate('academicDepartment')
     .populate('academicFaculty');
