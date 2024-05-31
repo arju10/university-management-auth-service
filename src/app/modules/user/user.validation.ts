@@ -152,5 +152,5 @@ const createFacultyZodSchema = z.object({
 
 export const UserValidation = {
   createStudentZodSchema,
-  createFacultyZodSchema
+  createFacultyZodSchema,
 };
