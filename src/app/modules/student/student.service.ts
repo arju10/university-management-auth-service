@@ -66,14 +66,14 @@ const getAllStudents = async (
 
 // Get Single Semester By ID ==== API: ("/api/v1/students/:id") === Method :[ GET]
 const getSingleStudent = async (id: string): Promise<IStudent | null> => {
-  const result = await Student.findOne({id})
+  const result = await Student.findOne({ id })
     .populate('academicSemester')
     .populate('academicDepartment')
     .populate('academicFaculty');
   return result;
 };
 
-// Update Single Semester By ID ==== API: ("/api/v1/students/:id") === Method :[ Patch]
+// Update Single student By ID ==== API: ("/api/v1/students/:id") === Method :[ Patch]
 const updateStudent = async (
   id: string,
   payload: Partial<IStudent>,
