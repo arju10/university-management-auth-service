@@ -12,4 +12,5 @@ router.post(
   ManagementDepartmentController.createDepartment,
 );
 
+router.get('/', ManagementDepartmentController.getAllDepartments);
 export const ManagementDepartmentRoutes = router;
