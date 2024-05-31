@@ -6,7 +6,7 @@ import { facultySearchableFields } from './faculty.constant';
 import { IFaculty, IFacultyFilters } from './faculty.interface';
 import { Faculty } from './faculty.model';
 
-// Get All Faculty with pagination ==== API: ("/api/v1/students/?page=1&limit=10") === Method :[ GET]
+// Get All Faculty with pagination ==== API: ("/api/v1/faculties/?page=1&limit=10") === Method :[ GET]
 const getAllFaculties = async (
   filters: IFacultyFilters,
   paginationOptions: IPaginationOptions,
@@ -62,6 +62,16 @@ const getAllFaculties = async (
   };
 };
 
+// Get Single Faculty By ID ==== API: ("/api/v1/faculties/:id) === Method :[ GET]
+const getSingleFaculty = async (id: string): Promise<IFaculty | null> => {
+  const result = await Faculty.findOne({ id })
+    .populate('academicDepartment')
+    .populate('academicFaculty');
+
+  return result;
+};
+
 export const FacultyService = {
   getAllFaculties,
+  getSingleFaculty,
 };
