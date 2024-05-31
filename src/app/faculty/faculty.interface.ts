@@ -40,3 +40,4 @@ export type IFacultyFilters = {
   academicFaculty?: string;
   designation?: string;
 };
+
