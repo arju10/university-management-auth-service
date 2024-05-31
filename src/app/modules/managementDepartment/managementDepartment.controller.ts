@@ -73,9 +73,22 @@ const updateDepartment = catchAsync(
   }),
 );
 
+// Delete Single Management Department By ID==== API: ("/api/v1/management-departments/:id") === Method :[DELETE]
+const deleteDepartment = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await ManagementDepartmentService.deleteDepartment(id);
+
+  sendResponse<IManagementDepartment>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Management department deleted successfully',
+    data: result,
+  });
+});
 export const ManagementDepartmentController = {
   createDepartment,
   getAllDepartments,
   getSingleDepartment,
   updateDepartment,
+  deleteDepartment,
 };

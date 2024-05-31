@@ -19,5 +19,6 @@ router.patch(
   ),
   ManagementDepartmentController.updateDepartment,
 );
+router.delete('/:id', ManagementDepartmentController.deleteDepartment);
 router.get('/', ManagementDepartmentController.getAllDepartments);
 export const ManagementDepartmentRoutes = router;

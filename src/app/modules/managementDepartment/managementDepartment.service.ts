@@ -95,9 +95,17 @@ const updateDepartment = async (
   return result;
 };
 
+// Delete Single Management Department By ID==== API: ("/api/v1/management-departments/:id") === Method :[DELETE]
+const deleteDepartment = async (
+  id: string,
+): Promise<IManagementDepartment | null> => {
+  const result = await ManagementDepartment.findByIdAndDelete(id);
+  return result;
+};
 export const ManagementDepartmentService = {
   createDepartment,
   getAllDepartments,
   getSingleDepartment,
   updateDepartment,
+  deleteDepartment,
 };
