@@ -1,8 +1,6 @@
 import { Schema, Types, model } from 'mongoose';
 import { FacultyModel, IFaculty } from './faculty.interface';
 
-
-
 const FacultySchema = new Schema<IFaculty, FacultyModel>(
   {
     id: {
@@ -81,7 +79,7 @@ const FacultySchema = new Schema<IFaculty, FacultyModel>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export const Faculty = model<IFaculty, FacultyModel>('Faculty', FacultySchema);
