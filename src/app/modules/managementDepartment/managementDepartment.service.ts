@@ -71,7 +71,17 @@ const getAllDepartments = async (
     data: result,
   };
 };
+
+// Get Single Management Department By ID==== API: ("/api/v1/management-departments/:id") === Method :[ GET]
+const getSingleDepartment = async (
+  id: string,
+): Promise<IManagementDepartment | null> => {
+  const result = await ManagementDepartment.findById(id);
+  return result;
+};
+
 export const ManagementDepartmentService = {
   createDepartment,
   getAllDepartments,
+  getSingleDepartment,
 };
