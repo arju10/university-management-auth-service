@@ -6,6 +6,7 @@ import { adminSearchableFields } from './admin.constant';
 import { IAdmin, IAdminFilters } from './admin.interface';
 import { Admin } from './admin.model';
 
+// Get All admins with pagination ==== API: ("/api/v1/admins/?page=1&limit=10") === Method :[ GET]
 const getAllAdmins = async (
   filters: IAdminFilters,
   paginationOptions: IPaginationOptions,
@@ -61,6 +62,12 @@ const getAllAdmins = async (
   };
 };
 
+// Get Single Admin By ID ==== API: ("/api/v1/admins/:id) === Method :[ GET]
+const getSingleAdmin = async (id: string): Promise<IAdmin | null> => {
+  const result = await Admin.findOne({ id }).populate('managementDepartment');
+  return result;
+};
 export const AdminService = {
   getAllAdmins,
+  getSingleAdmin,
 };

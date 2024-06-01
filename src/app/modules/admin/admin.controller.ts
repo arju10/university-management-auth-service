@@ -8,6 +8,7 @@ import { AdminService } from './admin.service';
 import { IAdmin } from './admin.interface';
 import httpStatus from 'http-status';
 
+// Get All admins with pagination ==== API: ("/api/v1/admins/?page=1&limit=10") === Method :[ GET]
 const getAllAdmins = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, adminFilterableFields);
   const paginationOptions = pick(req.query, paginationFields);
@@ -23,6 +24,19 @@ const getAllAdmins = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// Get Single Admin By ID ==== API: ("/api/v1/admins/:id) === Method :[ GET]
+const getSingleAdmin = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const result = await AdminService.getSingleAdmin(id);
+
+  sendResponse<IAdmin>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Admin retrieved successfully !',
+    data: result,
+  });
+});
 export const AdminController = {
   getAllAdmins,
+  getSingleAdmin,
 };
