@@ -10,7 +10,7 @@ export type UserName = {
 export type IAdmin = {
   id: string;
   name: UserName;
-  profileImage: string;
+  profileImage?: string;
   dateOfBirth?: string;
   email: string;
   contactNo: string;
