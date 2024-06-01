@@ -5,6 +5,8 @@ import { IPaginationOptions } from '../../../interfaces/pagination';
 import { adminSearchableFields } from './admin.constant';
 import { IAdmin, IAdminFilters } from './admin.interface';
 import { Admin } from './admin.model';
+import ApiError from '../../../errors/ApiError';
+import httpStatus from 'http-status';
 
 // Get All admins with pagination ==== API: ("/api/v1/admins/?page=1&limit=10") === Method :[ GET]
 const getAllAdmins = async (
@@ -67,7 +69,36 @@ const getSingleAdmin = async (id: string): Promise<IAdmin | null> => {
   const result = await Admin.findOne({ id }).populate('managementDepartment');
   return result;
 };
+
+// Update Single Admin By ID ==== API: ("/api/v1/admins/:id) === Method :[ PATCH]
+const updateAdmin = async (
+  id: string,
+  payload: Partial<IAdmin>,
+): Promise<IAdmin | null> => {
+  const isExist = await Admin.findOne({ id });
+
+  if (!isExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Admin not found !');
+  }
+
+  const { name, ...adminData } = payload;
+
+  const updatedStudentData: Partial<IAdmin> = { ...adminData };
+
+  if (name && Object.keys(name).length > 0) {
+    Object.keys(name).forEach(key => {
+      const nameKey = `name.${key}` as keyof Partial<IAdmin>;
+      (updatedStudentData as any)[nameKey] = name[key as keyof typeof name];
+    });
+  }
+
+  const result = await Admin.findOneAndUpdate({ id }, updatedStudentData, {
+    new: true,
+  });
+  return result;
+};
 export const AdminService = {
   getAllAdmins,
   getSingleAdmin,
+  updateAdmin,
 };
