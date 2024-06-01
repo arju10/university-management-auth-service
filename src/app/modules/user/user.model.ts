@@ -1,6 +1,5 @@
 import { Schema, model } from 'mongoose';
 import { IUser, UserModel } from './user.interface';
-
 const userSchema = new Schema<IUser>(
   {
     id: {
@@ -20,10 +19,10 @@ const userSchema = new Schema<IUser>(
       type: Schema.Types.ObjectId,
       ref: 'Student',
     },
-    // faculty: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'Faculty',
-    // },
+    faculty: {
+      type: Schema.Types.ObjectId,
+      ref: 'Faculty',
+    },
     admin: {
       type: Schema.Types.ObjectId,
       ref: 'Admin',
@@ -31,10 +30,10 @@ const userSchema = new Schema<IUser>(
   },
   {
     timestamps: true,
+
     toJSON: {
       virtuals: true,
     },
   },
 );
-
 export const User = model<IUser, UserModel>('User', userSchema);
