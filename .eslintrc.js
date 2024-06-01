@@ -23,7 +23,6 @@ module.exports = [
       indent: ['error', 2],
       quotes: ['error', 'single'],
       semi: ['error', 'always'], // enforce semicolons
-      semi: ['error', 'always'], // enforce semicolons
       'linebreak-style': ['error', 'unix'], // enforce Unix linebreak style
       'no-empty-function': ['error', { allow: ['arrowFunctions'] }], // disallow empty functions, except arrow functions
       'object-curly-spacing': ['error', 'always'], // enforce spacing inside object curly braces
