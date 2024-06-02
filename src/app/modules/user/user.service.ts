@@ -12,6 +12,7 @@ import { Student } from '../student/student.model';
 import httpStatus from 'http-status';
 import { Faculty } from '../faculty/faculty.model';
 import { IFaculty } from '../faculty/faculty.interface';
+import bcrypt from 'bcrypt';
 
 // Create User as Student ==== API: ("/api/v1/users/create-student") === Method :[ POST]
 const createStudent = async (
@@ -32,6 +33,11 @@ const createStudent = async (
     user.password = config.default_student_pass as string;
   }
 
+  // Set the Hash Password in Plain password (Hash Password)
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bcrypt_salt_rounds),
+  );
   // set role
   user.role = 'student';
 

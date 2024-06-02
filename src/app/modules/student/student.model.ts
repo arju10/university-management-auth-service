@@ -48,7 +48,7 @@ export const StudentSchema = new Schema<IStudent, StudentModel>(
     },
     emergencyContactNo: {
       type: String,
-      unique: true,
+      // unique: true,
     },
     presentAddress: {
       type: String,
