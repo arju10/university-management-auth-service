@@ -12,14 +12,12 @@ import { IStudent } from '../student/student.interface';
 import { Student } from '../student/student.model';
 import { IUser } from './user.interface';
 import { User } from './user.model';
-import bcrypt from 'bcrypt';
 
 import {
   generateAdminId,
   generateFacultyId,
   generateStudentId,
 } from './user.utils';
-
 
 const createStudent = async (
   student: IStudent,
@@ -31,10 +29,11 @@ const createStudent = async (
   }
 
   // Set the Hash Password in Plain password (Hash Password)
-  user.password = await bcrypt.hash(
-    user.password,
-    Number(config.bcrypt_salt_rounds),
-  );
+
+  // user.password = await bcrypt.hash(
+  //   user.password,
+  //   Number(config.bcrypt_salt_rounds),
+  // );
 
   // set role
   user.role = 'student';
