@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 import { IUser, UserModel } from './user.interface';
 import bcrypt from 'bcrypt';
 import config from '../../../config';
-const userSchema = new Schema<IUser>(
+const UserSchema = new Schema<IUser, UserModel>(
   {
     id: {
       type: String,
@@ -16,6 +16,11 @@ const userSchema = new Schema<IUser>(
     password: {
       type: String,
       required: true,
+      select: 0,
+    },
+    needsPasswordChange: {
+      type: Boolean,
+      default: true,
     },
     student: {
       type: Schema.Types.ObjectId,
@@ -39,9 +44,48 @@ const userSchema = new Schema<IUser>(
   },
 );
 
+// UserSchema.methods.isUserExist = async function (
+//   id: string,
+// ): Promise<Partial<IUser> | null> {
+//   const user = await User.findOne(
+//     { id },
+//     { id: 1, password: 1,role:1, needsPasswordChange: 1 },
+//   );
+//   return user;
+// };
+
+// UserSchema.methods.isPasswordMatched = async function (
+//   givenPassword: string,
+//   savedPassword: string,
+// ): Promise<boolean> {
+//   const isMatched = await bcrypt.compare(givenPassword, savedPassword);
+//   return isMatched;
+// };
+
+UserSchema.statics.isUserExist = async function (
+  id: string,
+): Promise<Pick<
+  IUser,
+  'id' | 'password' | 'role' | 'needsPasswordChange'
+> | null> {
+  const user = await User.findOne(
+    { id },
+    { id: 1, password: 1, role: 1, needsPasswordChange: 1 },
+  );
+  return user;
+};
+
+UserSchema.statics.isPasswordMatched = async function (
+  givenPassword: string,
+  savedPassword: string,
+): Promise<boolean> {
+  const isMatched = await bcrypt.compare(givenPassword, savedPassword);
+  return isMatched;
+};
+
 // Hash Password
 // User.create() / User.save()
-userSchema.pre('save', async function (next) {
+UserSchema.pre('save', async function (next) {
   // Hashing the password
   // console.log(this)
   const user = this;
@@ -50,4 +94,4 @@ userSchema.pre('save', async function (next) {
     Number(config.bcrypt_salt_rounds),
   );
 });
-export const User = model<IUser, UserModel>('User', userSchema);
+export const User = model<IUser, UserModel>('User', UserSchema);
