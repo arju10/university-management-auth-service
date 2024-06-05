@@ -93,5 +93,6 @@ UserSchema.pre('save', async function (next) {
     user.password,
     Number(config.bcrypt_salt_rounds),
   );
+  user.password = '';
 });
 export const User = model<IUser, UserModel>('User', UserSchema);
